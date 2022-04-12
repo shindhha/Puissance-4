@@ -20,7 +20,9 @@ public class Tests {
      */
     public static void main(String[] args) {
         
-        //
+        Grille grille = new Grille(0);
+        grille.ajouter(2, false);
+        System.out.println(grille.toString());
     }
 
     //TODO tests d'ajout , empilement , vérification pour ne pas dépasser le tableau

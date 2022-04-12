@@ -20,14 +20,16 @@ public class Pion {
 	private boolean equipe;
 
 	/**
-	 * TODO commenter l'état initial atteint
-	 * @param equipe
+	 * Methode constructeur des pions
+	 * @param equipe true pour pions bleu et false pour jaune
 	 */
 	public Pion(boolean equipe) {
 		this.equipe = equipe;
 	}
-	/** TODO commenter le rôle de cette méthode (SRP)
-	 * @return l'equipe
+	
+	/** 
+	 * 
+	 * @return l'equipe true si pions d'equipe bleu et false si jaune
 	 */
 	public boolean getTeam() {
 	    return this.equipe;

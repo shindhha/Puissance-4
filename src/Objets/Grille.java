@@ -18,12 +18,14 @@ public class Grille {
 
     private Pion[][] tableau = new Pion[7][6];
 
-    private boolean termine;
+    private int id;
 
     /**
-     * TODO commenter l'état initial atteint
+     * constructor de grilles
+     * @param id identifiant de la grille
      */
-    public Grille() {
+    public Grille(int id) {
+        this.id = id;
     }
     /** 
      * Vide le tableau des pion existant
@@ -38,41 +40,58 @@ public class Grille {
     }
     
     /** 
+     * @param colonne colonne a verifier
+     * @return true si la colonne est pleine, sinon false
+     */
+    public  boolean colonnePleine(int colonne) {
+        
+        return getTableau()[colonne][5] != null;
+        
+    }
+    
+    /** 
      * Ajoute un pion de l'équipe voulut dans la premiere case libre en partant
      * de la colonne choisit en partant du bas
-     * @param x les coordonnée sur l'axe des abscisse == Les colonnes
+     * @param colonne les coordonnée sur l'axe des abscisse == Les colonnes
      * @param equipe l'équipe en question
      * @throws IllegalArgumentException si la colonne choisit n'existe pas
      */
-    public void ajouter(int x, boolean equipe) {
-        if (x < 0 || x > getTableau().length ) {
-            throw new IllegalArgumentException();
+    public void ajouter(int colonne, boolean equipe) {
+        if (colonne < 0 || colonne > getTableau().length ) {
+            throw new IllegalArgumentException("colonne inexistante");
         }
-        int y = 0;
-        while (getTableau()[x][y] != null 
-               && y > getTableau()[x].length) {
-            y++;
+        if (colonnePleine(colonne)) {
+            throw new IllegalArgumentException("colonne pleine");
         }
-        getTableau()[x][y] = new Pion(equipe);
+            
+        int ligne = 0;
+        for (; getTableau()[colonne][ligne] != null ; ligne++);
+        getTableau()[colonne][ligne] = new Pion(equipe);
     }
+    
+    
     @Override
     public String toString() {
-        Pion[][] t = getTableau();
+        Pion[][] table = getTableau();
         StringBuilder message = new StringBuilder();
-        for (int y = t[0].length - 1; y >= 0; y--) {
-            message.append("\n=============================================\n");
-            for (int x = 0 ; x < t.length; x++) {
-                if (t[x][y] != null) {
-                    message.append("|" + t[x][y].getTeam());
+        for (int y = table[0].length - 1; y >= 0; y--) {
+            message.append("\n");
+            for (int x = 0 ; x < table.length; x++) {
+                if (table[x][y] != null) {
+                    char team =  table[x][y].getTeam() ? 'J' : 'B';
+                    message.append("|" + team);
                 } else {
-                    message.append("|noTeam");
+                    message.append("|_");
                 }
                 
             }
+            message.append("|");
         }
         
         return message.toString();
     }
+    
+    
     /** 
      * @return le tableau de la partie avec les pions qui on déjà été rajouté
      */ 
