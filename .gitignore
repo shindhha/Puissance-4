@@ -1,0 +1,12 @@
+# dossiers et fichiers de IntelliJ
+out/
+.idea/
+*.iml
+pom.xml
+target/
+# dossiers et fichiers de Eclipse
+bin/
+.class
+.classpath
+.project
+.settings/
