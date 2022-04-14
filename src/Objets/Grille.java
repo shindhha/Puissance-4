@@ -19,6 +19,7 @@ public class Grille {
     private Pion[][] tableau = new Pion[7][6];
 
     private int id;
+    private Pion lastPlaced;
 
     /**
      * constructor de grilles
@@ -48,6 +49,10 @@ public class Grille {
         return getTableau()[colonne][5] != null;
         
     }
+    public boolean ValidCoord(int colonne,int ligne) {
+    	return colonne >= 0 && colonne < getTableau().length
+    		   && ligne >= 0 && ligne < getTableau()[colonne].length;
+    }
     
     /** 
      * Ajoute un pion de l'équipe voulut dans la premiere case libre en partant
@@ -61,15 +66,68 @@ public class Grille {
             throw new IllegalArgumentException("colonne inexistante");
         }
         if (colonnePleine(colonne)) {
-            throw new IllegalArgumentException("colonne pleine");
+            throw new ArrayIndexOutOfBoundsException("colonne pleine");
         }
             
         int ligne = 0;
         for (; getTableau()[colonne][ligne] != null ; ligne++);
-        getTableau()[colonne][ligne] = new Pion(equipe);
+        lastPlaced = new Pion(equipe,colonne,ligne);
+        getTableau()[colonne][ligne] = lastPlaced;
     }
-    
-    
+    public Pion getPionFrom(int colonne,int ligne) {
+    	if (getTableau()[colonne][ligne] == null) {
+    		return null;
+    	}
+    	if (!ValidCoord(colonne, ligne)) {
+    		throw new ArrayIndexOutOfBoundsException();
+    	}
+    	return getTableau()[colonne][ligne];
+    }
+    public int getNbPion(int bas , int droite) {
+    	
+		int nbPion = 0;
+		Pion toCompare = getLastPlaced();
+		boolean sameColor = true;
+		for(int nbIt = 0; nbIt < 3 && sameColor; nbIt++) {
+			try {
+				toCompare = toCompare.lookNext(bas, droite, this);
+				sameColor = toCompare.equals(this.lastPlaced);
+				if (sameColor) nbPion++;
+			} catch (Exception e) {
+			} 
+		}
+		if (nbPion == 3) return 3;
+		toCompare = getLastPlaced();
+		for(int nbIt = 0; nbIt < 3 && sameColor; nbIt++) {
+			try {
+				toCompare = toCompare.lookNext(bas * -1, droite * -1, this);
+				sameColor = toCompare.equals(this.lastPlaced);
+				if (sameColor) nbPion++;
+			} catch (Exception e) {
+			} 
+		}
+		
+		return nbPion;
+    }
+    public boolean IdentVictory() {
+    	
+    	int dBasGauche = getNbPion(1, 1);
+    	System.out.println("dbg : " + dBasGauche);
+    	int dHautGauche = getNbPion(-1, 1);
+    	System.out.println("dhg : " + dHautGauche);
+    	int horizontal = getNbPion(1,0);
+    	System.out.println("hor : " + horizontal);
+    	int vertical = getNbPion(0, -1);
+    	System.out.println("ver : " + vertical);
+    	return dBasGauche == 3 || dHautGauche == 3 || horizontal == 3 || vertical == 3;
+    }
+    public boolean grillePlein() {
+    	boolean colonnePlein = true;
+    	for (int colonne = 0; colonne < getTableau().length; colonne++) {
+    		colonnePlein &= colonnePleine(colonne);
+    	}
+    	return colonnePlein;
+    }
     @Override
     public String toString() {
         Pion[][] table = getTableau();
@@ -91,7 +149,9 @@ public class Grille {
         return message.toString();
     }
     
-    
+    public Pion getLastPlaced() {
+    	return this.lastPlaced;
+    }
     /** 
      * @return le tableau de la partie avec les pions qui on déjà été rajouté
      */ 
