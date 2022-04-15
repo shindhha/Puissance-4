@@ -6,7 +6,7 @@ pom.xml
 target/
 # dossiers et fichiers de Eclipse
 bin/
-.class
+*.class
 .classpath
 .project
 .settings/

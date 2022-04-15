@@ -28,9 +28,8 @@ public class Grille {
     public Grille(int id) {
         this.id = id;
     }
-    /** 
-     * Vide le tableau des pion existant
-     */
+     
+    /** Vide le tableau des pion existant */
     public void vider() {
 
         for (int x = 0; x < getTableau().length; x++) {
@@ -45,10 +44,13 @@ public class Grille {
      * @return true si la colonne est pleine, sinon false
      */
     public  boolean colonnePleine(int colonne) {
-        
         return getTableau()[colonne][5] != null;
-        
     }
+    /** 
+     * @param colonne , la colonne cible
+     * @param ligne , la ligne cible
+     * @return true si les coordonnées existe dans la grille , false sinon 
+     */
     public boolean ValidCoord(int colonne,int ligne) {
     	return colonne >= 0 && colonne < getTableau().length
     		   && ligne >= 0 && ligne < getTableau()[colonne].length;
@@ -74,6 +76,13 @@ public class Grille {
         lastPlaced = new Pion(equipe,colonne,ligne);
         getTableau()[colonne][ligne] = lastPlaced;
     }
+    /**
+     * @param colonne la colonne cible
+     * @param ligne la ligne cible
+     * @throw ArraArrayIndexOutOfBoundsException si les coordonées n'existe pas
+     *        une future exception si la case cible est vide 
+     * @return le supposer pion au coordonées choisie
+     */
     public Pion getPionFrom(int colonne,int ligne) {
     	if (getTableau()[colonne][ligne] == null) {
     		return null;
@@ -83,45 +92,64 @@ public class Grille {
     	}
     	return getTableau()[colonne][ligne];
     }
-    public int getNbPion(int bas , int droite) {
+    /**
+     * @param horizontalDirection la direction a suivre : si négatif a gauche sinon a droite
+     * @param verticalDirection la direction a suibre : si négatif en bas sinon en haut
+     * @param toCompare le point de départ de la 'Translation'
+     * @return le nombre de pion aligner avec 'toCompare' en l'excluant
+     */
+    public int getNbAlignPion(int horizontalDirection , int verticalDirection, Pion toCompare) {
     	
 		int nbPion = 0;
-		Pion toCompare = getLastPlaced();
+		Pion toCompareBis = toCompare;
 		boolean sameColor = true;
 		for(int nbIt = 0; nbIt < 3 && sameColor; nbIt++) {
 			try {
-				toCompare = toCompare.lookNext(bas, droite, this);
-				sameColor = toCompare.equals(this.lastPlaced);
+				toCompareBis = toCompareBis.lookAside(horizontalDirection, verticalDirection, this);
+				sameColor = toCompareBis.equals(toCompare);
 				if (sameColor) nbPion++;
 			} catch (Exception e) {
-			} 
+			}
 		}
 		if (nbPion == 3) return 3;
-		toCompare = getLastPlaced();
+		toCompareBis = toCompare;
+        sameColor = true;
 		for(int nbIt = 0; nbIt < 3 && sameColor; nbIt++) {
 			try {
-				toCompare = toCompare.lookNext(bas * -1, droite * -1, this);
-				sameColor = toCompare.equals(this.lastPlaced);
+				toCompareBis = toCompareBis.lookAside(horizontalDirection * -1, verticalDirection * -1, this);
+				sameColor = toCompareBis.equals(toCompare);
 				if (sameColor) nbPion++;
 			} catch (Exception e) {
 			} 
 		}
-		
 		return nbPion;
     }
     public boolean IdentVictory() {
     	
-    	int dBasGauche = getNbPion(1, 1);
-    	System.out.println("dbg : " + dBasGauche);
-    	int dHautGauche = getNbPion(-1, 1);
-    	System.out.println("dhg : " + dHautGauche);
-    	int horizontal = getNbPion(1,0);
-    	System.out.println("hor : " + horizontal);
-    	int vertical = getNbPion(0, -1);
-    	System.out.println("ver : " + vertical);
+       
+    	int dBasGauche = getNbAlignPion(1, 1, getLastPlaced());
+    	if (dBasGauche == 3) {
+            System.out.println("Victoire diagonale Nord Est !");
+        }
+        
+    	int dHautGauche = getNbAlignPion(-1, 1, getLastPlaced());
+    	if (dHautGauche == 3) {
+            System.out.println("Victoire diagonale Sud Est !");
+        }
+        
+    	int horizontal = getNbAlignPion(1, 0, getLastPlaced());
+        if (horizontal == 3) {
+            System.out.println("Victoire Ouest Est !");
+        }
+       
+    	int vertical = getNbAlignPion(0, -1, getLastPlaced());
+    	if (vertical == 3) {
+            System.out.println("Victoire Nord Sud !");
+        }
     	return dBasGauche == 3 || dHautGauche == 3 || horizontal == 3 || vertical == 3;
     }
-    public boolean grillePlein() {
+    /** @return true si la grille est pleine false sinon */
+    public boolean grillePleine() {
     	boolean colonnePlein = true;
     	for (int colonne = 0; colonne < getTableau().length; colonne++) {
     		colonnePlein &= colonnePleine(colonne);
@@ -148,7 +176,7 @@ public class Grille {
         
         return message.toString();
     }
-    
+    /** @return le dernier pion placer dans la grille */
     public Pion getLastPlaced() {
     	return this.lastPlaced;
     }
