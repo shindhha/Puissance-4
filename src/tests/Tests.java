@@ -45,11 +45,6 @@ public class Tests {
     	
     	
     }
-    //TODO tests d'ajout , empilement , vérification pour ne pas dépasser le tableau
-    //TODO tests toString meme si normalement sa marche;
-    private static boolean TestsVider() {
-        return true; //bouchon
-    }
     private static boolean TestsVictoire() {
         boolean victoire = true;
     	/* Test pour la victoire en diagonale en partant d'en bas a gauche jusqu'en haut a droite */

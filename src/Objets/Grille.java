@@ -111,38 +111,28 @@ public class Grille {
 			} catch (Exception e) {
 			}
 		}
-		if (nbPion == 3) return 3;
-		toCompareBis = toCompare;
-        sameColor = true;
-		for(int nbIt = 0; nbIt < 3 && sameColor; nbIt++) {
-			try {
-				toCompareBis = toCompareBis.lookAside(horizontalDirection * -1, verticalDirection * -1, this);
-				sameColor = toCompareBis.equals(toCompare);
-				if (sameColor) nbPion++;
-			} catch (Exception e) {
-			} 
-		}
 		return nbPion;
     }
     public boolean IdentVictory() {
     	
-       
-    	int dBasGauche = getNbAlignPion(1, 1, getLastPlaced());
+    	Pion last = getLastPlaced();
+    	
+    	int dBasGauche = getNbAlignPion(1, 1, last) + getNbAlignPion(-1, -1, last);
     	if (dBasGauche == 3) {
             System.out.println("Victoire diagonale Nord Est !");
         }
         
-    	int dHautGauche = getNbAlignPion(-1, 1, getLastPlaced());
+    	int dHautGauche = getNbAlignPion(-1, 1, last) + getNbAlignPion(1, -1, last);
     	if (dHautGauche == 3) {
             System.out.println("Victoire diagonale Sud Est !");
         }
         
-    	int horizontal = getNbAlignPion(1, 0, getLastPlaced());
+    	int horizontal = getNbAlignPion(1, 0, last) + getNbAlignPion(-1, 0, last);
         if (horizontal == 3) {
             System.out.println("Victoire Ouest Est !");
         }
        
-    	int vertical = getNbAlignPion(0, -1, getLastPlaced());
+    	int vertical = getNbAlignPion(0, -1, last);
     	if (vertical == 3) {
             System.out.println("Victoire Nord Sud !");
         }
