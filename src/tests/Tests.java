@@ -9,6 +9,7 @@ import java.util.Random;
 
 import Objets.Grille;
 import Objets.Pion;
+import Main.Interface;
 
 /** TODO commenter la responsabilit? de cette classe
  * @author guillaume.medard
@@ -21,11 +22,11 @@ public class Tests {
      */
     public static void main(String[] args) {
         
-        if (TestsVictoire()) {
-        	System.out.println("Tests reussissent");
-        } else {
-        	System.out.println("Tests echouent");
-        }
+//        if (TestsVictoire()) {
+//        	System.out.println("Tests reussissent");
+//        } else {
+//        	System.out.println("Tests echouent");
+//        }
         
         
     }

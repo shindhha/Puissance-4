@@ -1,11 +1,9 @@
-/* Grille.java                                              DATE : 08/04/2022
+ /* Grille.java                                              DATE : 08/04/2022
  * IUT - RODEZ SAE 2.02 
  * Pas de droit d'auteur ni de copyright
  */
 
 package Objets;
-
-
 
 /**
  * Objet représantent un Tableau/Grille de Puissance 4
@@ -17,7 +15,7 @@ package Objets;
 public class Grille {
 
     private Pion[][] tableau = new Pion[7][6];
-
+    private boolean tourJoueur = true;
     private int id;
     private Pion lastPlaced;
 
@@ -75,6 +73,7 @@ public class Grille {
         for (; getTableau()[colonne][ligne] != null ; ligne++);
         lastPlaced = new Pion(equipe,colonne,ligne);
         getTableau()[colonne][ligne] = lastPlaced;
+        
     }
     /**
      * @param colonne la colonne cible
@@ -136,7 +135,7 @@ public class Grille {
     	if (vertical == 3) {
             System.out.println("Victoire Nord Sud !");
         }
-    	return dBasGauche == 3 || dHautGauche == 3 || horizontal == 3 || vertical == 3;
+    	return dBasGauche >= 3 || dHautGauche >= 3 || horizontal >= 3 || vertical >= 3;
     }
     /** @return true si la grille est pleine false sinon */
     public boolean grillePleine() {
