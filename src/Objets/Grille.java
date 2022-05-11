@@ -121,6 +121,8 @@ public class Grille {
     	System.out.println("ver : " + vertical);
     	return dBasGauche == 3 || dHautGauche == 3 || horizontal == 3 || vertical == 3;
     }
+
+    
     public boolean grillePlein() {
     	boolean colonnePlein = true;
     	for (int colonne = 0; colonne < getTableau().length; colonne++) {
