@@ -29,29 +29,39 @@ public class Pion  {
 		this.Coord[0] = colonne;
 		this.Coord[1] = ligne;
 	}
-	
-	public Pion lookNext (int colonne , int ligne,Grille laGrille) {
-    	int targetColumn = colonne + getCoord()[0];
-    	int targetRow = ligne + getCoord()[1];
-		return laGrille.getPionFrom(targetColumn,targetRow);
+	/**
+	 * Permet de récuperer un supposer pion relativement a celui
+	 * qui a appeler la fonction un nombre négatif signifie que l'on
+	 * reculle sur la grille a l'inver un nombre positif signifie que 
+	 * l'on avance 
+	 * @param nbVertical le nombre de case a parcourir sur l'axe des
+	 *                   abssice par rapport au pion courant
+	 * @param nbHorizontal le nombre de case a parcourir sur l'axe des
+	 *                     ordonnée par rapport au pion courant
+	 * @param choisie La grille sur laquelle on doit récupérer le pion
+	 * @return le pion éloigner horizontalement de 'colonne' case 
+	 *         et éloigner verticalement de 'ligne' case
+	 */
+	public Pion lookAside (int nbVertical, int nbHorizontal, Grille choisie) {
+    	int targetColumn = nbVertical + getCoord()[0];
+    	int targetRow = nbHorizontal + getCoord()[1];
+		return choisie.getPionFrom(targetColumn,targetRow);
     }
+    /** @return true si les pions sont de la même équipe false sinon */
 	public boolean equals (Pion toCompare) {
-		
 		return this.getTeam() == toCompare.getTeam();
 		
 	}
 	@Override
 	public String toString() {
-		return " a été placer dans la colonne : "
-			   + (getCoord()[0] + 1) + " et dans la ligne : " + (getCoord()[1] + 1);
+		return "a été placer dans la colonne : " + (getCoord()[0] + 1) 
+			   + " et dans la ligne : " + (getCoord()[1] + 1);
 	}
-	/** 
-	 * 
-	 * @return l'equipe true si pions d'equipe bleu et false si jaune
-	 */
+	/** @return l'equipe true si pions d'equipe bleu et false si jaune */
 	public boolean getTeam() {
 	    return this.equipe;
 	}
+	/** @return les coordonées du point sous la forme (x,y) */
 	public int[] getCoord() {
 		return this.Coord;
 	}
