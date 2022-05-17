@@ -5,7 +5,7 @@
 
 package Objets;
 
-
+import main.Grille;
 
 /**
  * Objet reprÃ©santent un Tableau/Grille de Puissance 4
@@ -71,10 +71,18 @@ public class Grille {
             throw new ArrayIndexOutOfBoundsException("colonne pleine");
         }
             
-        int ligne = 0;
-        for (; getTableau()[colonne][ligne] != null ; ligne++);
+        int ligne  = getFirstPlaceFree(colonne);
         lastPlaced = new Pion(equipe,colonne,ligne);
         getTableau()[colonne][ligne] = lastPlaced;
+    }
+    /** TODO commenter le rôle de cette méthode (SRP)
+     * @param colonne
+     * @return ligne libre
+     */
+    public int getFirstPlaceFree (int colonne) {
+        int ligne = 0;
+        for (; getTableau()[colonne][ligne] != null ; ligne++);
+        return ligne;
     }
     /**
      * @param colonne la colonne cible
@@ -176,5 +184,30 @@ public class Grille {
      */ 
     public Pion[][] getTableau() {
         return this.tableau;
+    }
+    
+    /** 
+     * methode de reflexion de l'IA
+     * @return la grille apres que l'IA ait jouer
+     */
+    public void ordinateur() {
+        int[] meilleurScore = new int[getTableau().length]; 
+        for (int colonne = 0; colonne < getTableau().length; colonne++) {
+            int ligne = getFirstPlaceFree(colonne);
+            int score = 0;
+            for (int horizontal = -1; horizontal < 2; horizontal++ ) {
+                for (int vertical = -1; vertical < 2; vertical++) {
+                    Pion temporaire = new Pion (true,colonne,ligne);
+                    score = getNbAlignPion(horizontal, vertical, temporaire);
+                    if (score > meilleurScore[colonne]) {
+                        meilleurScore[colonne] = score;
+                    }
+                    //TODO recuperer le meilleur score et placer le pion on l'ont marque le plus de point
+                    
+                }
+                
+            }
+        }
+
     }
 }
