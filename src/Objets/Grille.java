@@ -188,26 +188,47 @@ public class Grille {
     
     /** 
      * methode de reflexion de l'IA
+     * @param equipe equipe de l'ordinateur
      * @return la grille apres que l'IA ait jouer
      */
-    public void ordinateur() {
+    public void ordinateur(boolean equipe) {
+        int colonneAJouer = 0;
         int[] meilleurScore = new int[getTableau().length]; 
         for (int colonne = 0; colonne < getTableau().length; colonne++) {
             int ligne = getFirstPlaceFree(colonne);
-            int score = 0;
-            for (int horizontal = -1; horizontal < 2; horizontal++ ) {
-                for (int vertical = -1; vertical < 2; vertical++) {
-                    Pion temporaire = new Pion (true,colonne,ligne);
-                    score = getNbAlignPion(horizontal, vertical, temporaire);
-                    if (score > meilleurScore[colonne]) {
-                        meilleurScore[colonne] = score;
-                    }
-                    //TODO recuperer le meilleur score et placer le pion on l'ont marque le plus de point
-                    
+            meilleurScore[colonne] = pointParCoup(colonne, ligne);
+            for (int indice = 0; indice < getTableau().length; indice++) {
+                if (meilleurScore[colonneAJouer] < meilleurScore[indice]) {
+                    colonneAJouer = indice;
                 }
-                
             }
         }
+        ajouter(colonneAJouer, equipe);
+    }
 
+    /** 
+     * test le nombre de pion qui s'aligne 
+     * si l'ont pose un pion dans une case données en argument
+     * @param colonne du point temporaire
+     * @param ligne  du point temporaire
+     * @return nombre de pion alligner si l'ont 
+     *         pose un pion sur les coordonées du pion courrant
+     */
+    public int pointParCoup (int colonne, int ligne) {
+        int point = 0;
+        int plusPoints = 0; 
+        
+        for (int horizontal = -1; horizontal < 2; horizontal++ ) {
+            for (int vertical = -1; vertical < 2; vertical++) {
+                Pion temporaire = new Pion (true,colonne,ligne);
+                point =getNbAlignPion(horizontal, vertical, temporaire);
+                if (point > plusPoints) {
+                    plusPoints = point;
+                }
+            }
+        }
+    return plusPoints;
+        
+    
     }
 }

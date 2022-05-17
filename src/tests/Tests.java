@@ -21,7 +21,7 @@ public class Tests {
      */
     public static void main(String[] args) {
         
-        if (TestsVictoire()) {
+        if (testOrdinateur()) {
         	System.out.println("Tests reussissent");
         } else {
         	System.out.println("Tests echouent");
@@ -117,6 +117,32 @@ public class Tests {
         victoire &= test5.IdentVictory(); // identifie que 2/3 victoire , ne pas oublier que les victoires 
                                           // sont calculer uniquement par rapport au dernier pion placer.
         return  victoire;
+    }
+    
+    /** TODO commenter le rôle de cette méthode (SRP)
+     * @return true si test reussi, false sinon
+     */
+    public static boolean testOrdinateur() {
+        boolean ok;
+        
+        Grille ordinateur = new Grille(4);
+        ordinateur.ajouter(0, true);
+        ordinateur.ajouter(0, true);
+        
+        System.out.println(ordinateur);
+        
+        ordinateur.ordinateur(true);
+        
+        System.out.println(ordinateur);
+        
+        ok = ordinateur.getFirstPlaceFree(0) == 3;
+        
+        Grille ordinateur2 = new Grille (5);
+        
+        //TODO finir les test de ordinateur
+        
+        
+        return ok;
     }
 
 
