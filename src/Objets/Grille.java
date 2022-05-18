@@ -192,19 +192,27 @@ public class Grille {
      * @return la grille apres que l'IA ait jouer
      */
     public void ordinateur(boolean equipe) {
+        
         int colonneAJouer = 0;
         int[] meilleurScore = new int[getTableau().length]; 
-        for (int colonne = 0; colonne < getTableau().length; colonne++) {
-            int ligne = getFirstPlaceFree(colonne);
-            meilleurScore[colonne] = pointParCoup(colonne, ligne);
-            for (int indice = 0; indice < getTableau().length; indice++) {
-                if (meilleurScore[colonneAJouer] < meilleurScore[indice]) {
-                    colonneAJouer = indice;
+        int[] pointAdversaire = pointParCoup(lastPlaced.getCoord()[0], lastPlaced.getCoord()[1]);
+        
+        if (pointAdversaire[0] == 2) {
+            colonneAJouer = pointAdversaire[1] + pointAdversaire[2] * -1; // collone a l'opposer d'ou l'adversaire a aligner 3 pions
+        }else {
+            for (int colonne = 0; colonne < getTableau().length; colonne++) {
+                int ligne = getFirstPlaceFree(colonne);
+                meilleurScore[colonne] = pointParCoup(colonne, ligne)[0];
+                for (int indice = 0; indice < getTableau().length; indice++) {
+                    if (meilleurScore[colonneAJouer] < meilleurScore[indice]) {
+                        colonneAJouer = indice;
+                    }
                 }
             }
         }
         ajouter(colonneAJouer, equipe);
     }
+    
 
     /** 
      * test le nombre de pion qui s'aligne 
@@ -214,20 +222,31 @@ public class Grille {
      * @return nombre de pion alligner si l'ont 
      *         pose un pion sur les coordonées du pion courrant
      */
-    public int pointParCoup (int colonne, int ligne) {
+    public int[] pointParCoup (int colonne, int ligne) {
+        int colonnePointMax = 0;
+        int directionPointMax = 0;
         int point = 0;
         int plusPoints = 0; 
+        int[] info = new int[3];
         
         for (int horizontal = -1; horizontal < 2; horizontal++ ) {
             for (int vertical = -1; vertical < 2; vertical++) {
                 Pion temporaire = new Pion (true,colonne,ligne);
-                point =getNbAlignPion(horizontal, vertical, temporaire);
+                point = getNbAlignPion(horizontal, vertical, temporaire);
                 if (point > plusPoints) {
                     plusPoints = point;
+                    colonnePointMax = colonne;
+                    directionPointMax = horizontal;
                 }
             }
         }
-    return plusPoints;
+        info[0] = plusPoints;
+        info[1] = colonnePointMax;
+        info[2] = directionPointMax;
+        
+    return info;
+    
+    //TODO regler les problemes 
         
     
     }
