@@ -136,8 +136,14 @@ public class Tests {
         
         System.out.println(ordinateur);
         
-        //TODO corrriger les bugs
+        ordinateur.ajouter(3, true);
+        ordinateur.ajouter(4, true);
+
+        System.out.println(ordinateur);
         
+        ordinateur.ordinateur(true);
+        
+        System.out.println(ordinateur);
         
         return true;
     }
