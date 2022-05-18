@@ -16,7 +16,7 @@ package Objets;
  */
 public class Pion  {
 
-
+	private String nom;
 	private boolean equipe;
 	private int[] Coord = new int[2];
 

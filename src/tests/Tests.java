@@ -5,6 +5,7 @@
 
 package tests;
 
+import java.io.IOException;
 import java.util.Random;
 
 import Objets.Grille;
@@ -19,20 +20,21 @@ public class Tests {
 
     /** TODO commenter le r?e de cette m?hode (SRP)
      * @param args
+     * @throws IOException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
-//        if (TestsVictoire()) {
-//        	System.out.println("Tests reussissent");
-//        } else {
-//        	System.out.println("Tests echouent");
-//        }
-        
+        if (TestsVictoire()) {
+        	System.out.println("Tests reussissent");
+        } else {
+        	System.out.println("Tests echouent");
+        }
+        test();
         
     }
     private static boolean TestGrilleAleatoire ()throws ArrayIndexOutOfBoundsException {
     	
-    	Grille grilleTest = new Grille(1);
+    	Grille grilleTest = new Grille();
     	int colonne;
     	boolean team = true;
     	for (int nIt = 0; nIt < 20 && !grilleTest.IdentVictory(); nIt++) {
@@ -46,10 +48,10 @@ public class Tests {
     	
     	
     }
-    private static boolean TestsVictoire() {
+    private static boolean TestsVictoire() throws IOException {
         boolean victoire = true;
     	/* Test pour la victoire en diagonale en partant d'en bas a gauche jusqu'en haut a droite */
-    	Grille test1 = new Grille(3);
+    	Grille test1 = new Grille();
     	/**/
     	test1.ajouter(0, false);
     	test1.ajouter(1, true);
@@ -67,7 +69,7 @@ public class Tests {
     	victoire &= test1.IdentVictory();
     	/* Test pour la victoire en diagonale en partant d'en haut a gauche jusqu'en bas a droite */
     	
-    	Grille test2 = new Grille(3);
+    	Grille test2 = new Grille();
     	test2.ajouter(6, false);
     	test2.ajouter(5, true);
     	test2.ajouter(5, false);
@@ -82,7 +84,7 @@ public class Tests {
     	System.out.println("Le dernier pion " + test2.getLastPlaced());
         victoire &= test2.IdentVictory();
         /* Test pour la victoire verticale */
-        Grille test3 = new Grille(3);
+        Grille test3 = new Grille();
 
         test3.ajouter(0,false);
         test3.ajouter(0,false);
@@ -92,7 +94,7 @@ public class Tests {
         System.out.println("Le dernier pion " + test3.getLastPlaced());
         victoire &= test3.IdentVictory();
         /* Test pour la victoire horizontale */
-        Grille test4 = new Grille(3);
+        Grille test4 = new Grille();
 
         test4.ajouter(0,false);
         test4.ajouter(1,false);
@@ -102,7 +104,7 @@ public class Tests {
         System.out.println("Le dernier pion " + test4.getLastPlaced());
         victoire &= test4.IdentVictory();
         /* Test pour une multiple victoire */
-        Grille test5 = new Grille(3);
+        Grille test5 = new Grille();
         test5.ajouter(6, false);
         test5.ajouter(5, false);
         test5.ajouter(5, false);
@@ -117,8 +119,13 @@ public class Tests {
         System.out.println("Le dernier pion " + test5.getLastPlaced());
         victoire &= test5.IdentVictory(); // identifie que 2/3 victoire , ne pas oublier que les victoires 
                                           // sont calculer uniquement par rapport au dernier pion placer.
+
+        
         return  victoire;
     }
-
+    public static void test() throws IOException {
+    	Grille grille = Interface.charger("1.txt");
+    	System.out.println(grille);
+    }
 
 }

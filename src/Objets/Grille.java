@@ -16,15 +16,13 @@ public class Grille {
 
     private Pion[][] tableau = new Pion[7][6];
     private boolean tourJoueur = true;
-    private int id;
     private Pion lastPlaced;
-
     /**
      * constructor de grilles
      * @param id identifiant de la grille
      */
-    public Grille(int id) {
-        this.id = id;
+    public Grille() {
+
     }
      
     /** Vide le tableau des pion existant */
@@ -47,7 +45,7 @@ public class Grille {
     /** 
      * @param colonne , la colonne cible
      * @param ligne , la ligne cible
-     * @return true si les coordonnées existe dans la grille , false sinon 
+     * @return true si les coordonnï¿½es existe dans la grille , false sinon 
      */
     public boolean ValidCoord(int colonne,int ligne) {
     	return colonne >= 0 && colonne < getTableau().length
@@ -55,10 +53,10 @@ public class Grille {
     }
     
     /** 
-     * Ajoute un pion de l'équipe voulut dans la premiere case libre en partant
+     * Ajoute un pion de l'ï¿½quipe voulut dans la premiere case libre en partant
      * de la colonne choisit en partant du bas
-     * @param colonne les coordonnée sur l'axe des abscisse == Les colonnes
-     * @param equipe l'équipe en question
+     * @param colonne les coordonnï¿½e sur l'axe des abscisse == Les colonnes
+     * @param equipe l'ï¿½quipe en question
      * @throws IllegalArgumentException si la colonne choisit n'existe pas
      */
     public void ajouter(int colonne, boolean equipe) {
@@ -69,18 +67,22 @@ public class Grille {
             throw new ArrayIndexOutOfBoundsException("colonne pleine");
         }
             
-        int ligne = 0;
-        for (; getTableau()[colonne][ligne] != null ; ligne++);
+        int ligne = getFirstPlaceFree(colonne);
         lastPlaced = new Pion(equipe,colonne,ligne);
         getTableau()[colonne][ligne] = lastPlaced;
         
     }
+    public int getFirstPlaceFree(int colonne) {
+    	int ligne = 0;
+        for (; getTableau()[colonne][ligne] != null ; ligne++);
+        return ligne;
+    }
     /**
      * @param colonne la colonne cible
      * @param ligne la ligne cible
-     * @throw ArraArrayIndexOutOfBoundsException si les coordonées n'existe pas
+     * @throw ArraArrayIndexOutOfBoundsException si les coordonï¿½es n'existe pas
      *        une future exception si la case cible est vide 
-     * @return le supposer pion au coordonées choisie
+     * @return le supposer pion au coordonï¿½es choisie
      */
     public Pion getPionFrom(int colonne,int ligne) {
     	if (getTableau()[colonne][ligne] == null) {
@@ -92,9 +94,9 @@ public class Grille {
     	return getTableau()[colonne][ligne];
     }
     /**
-     * @param horizontalDirection la direction a suivre : si négatif a gauche sinon a droite
-     * @param verticalDirection la direction a suibre : si négatif en bas sinon en haut
-     * @param toCompare le point de départ de la 'Translation'
+     * @param horizontalDirection la direction a suivre : si nï¿½gatif a gauche sinon a droite
+     * @param verticalDirection la direction a suibre : si nï¿½gatif en bas sinon en haut
+     * @param toCompare le point de dï¿½part de la 'Translation'
      * @return le nombre de pion aligner avec 'toCompare' en l'excluant
      */
     public int getNbAlignPion(int horizontalDirection , int verticalDirection, Pion toCompare) {
@@ -170,7 +172,7 @@ public class Grille {
     	return this.lastPlaced;
     }
     /** 
-     * @return le tableau de la partie avec les pions qui on déjà été rajouté
+     * @return le tableau de la partie avec les pions qui on dï¿½jï¿½ ï¿½tï¿½ rajoutï¿½
      */ 
     public Pion[][] getTableau() {
         return this.tableau;
