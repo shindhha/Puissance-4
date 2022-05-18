@@ -49,7 +49,7 @@ public class Interface {
 			if (fileContent[i] == '_') {
 				compteurCase++;
 			} else if (fileContent[i] == 'J' || fileContent[i] == 'B') {
-				aRenvoyer.ajouter(6 - (compteurCase % 7), fileContent[i] == 'J');
+				aRenvoyer.ajouter(aRenvoyer.creer(6 - (compteurCase % 7), fileContent[i] == 'J'));
 				compteurCase++;
 			}
 				

@@ -5,6 +5,8 @@
 
 package Objets;
 
+import java.util.Random;
+
 /**
  * Objet représantent un Tableau/Grille de Puissance 4
  * d'une dimenssions de 7 colonne pour 6 ligne;
@@ -51,7 +53,9 @@ public class Grille {
     	return colonne >= 0 && colonne < getTableau().length
     		   && ligne >= 0 && ligne < getTableau()[colonne].length;
     }
-    
+    public void ajouter(Pion aAjouter) {
+    	getTableau()[aAjouter.getCoord()[0]][aAjouter.getCoord()[1]] = aAjouter;
+    }
     /** 
      * Ajoute un pion de l'�quipe voulut dans la premiere case libre en partant
      * de la colonne choisit en partant du bas
@@ -59,7 +63,7 @@ public class Grille {
      * @param equipe l'�quipe en question
      * @throws IllegalArgumentException si la colonne choisit n'existe pas
      */
-    public void ajouter(int colonne, boolean equipe) {
+    public Pion creer(int colonne, boolean equipe) {
         if (colonne < 0 || colonne > getTableau().length ) {
             throw new IllegalArgumentException("colonne inexistante");
         }
@@ -69,8 +73,8 @@ public class Grille {
             
         int ligne = getFirstPlaceFree(colonne);
         lastPlaced = new Pion(equipe,colonne,ligne);
-        getTableau()[colonne][ligne] = lastPlaced;
         
+        return lastPlaced;
     }
     public int getFirstPlaceFree(int colonne) {
     	int ligne = 0;
@@ -114,30 +118,16 @@ public class Grille {
 		}
 		return nbPion;
     }
-    public boolean IdentVictory() {
+    public boolean IdentVictory(int nbPionAlignToWin , Pion FromWho) {
     	
-    	Pion last = getLastPlaced();
+    	Pion last = FromWho;
     	
     	int dBasGauche = getNbAlignPion(1, 1, last) + getNbAlignPion(-1, -1, last);
-    	if (dBasGauche == 3) {
-            System.out.println("Victoire diagonale Nord Est !");
-        }
-        
-    	int dHautGauche = getNbAlignPion(-1, 1, last) + getNbAlignPion(1, -1, last);
-    	if (dHautGauche == 3) {
-            System.out.println("Victoire diagonale Sud Est !");
-        }
-        
-    	int horizontal = getNbAlignPion(1, 0, last) + getNbAlignPion(-1, 0, last);
-        if (horizontal == 3) {
-            System.out.println("Victoire Ouest Est !");
-        }
-       
+    	int dHautGauche = getNbAlignPion(-1, 1, last) + getNbAlignPion(1, -1, last);  
+    	int horizontal = getNbAlignPion(1, 0, last) + getNbAlignPion(-1, 0, last);    
     	int vertical = getNbAlignPion(0, -1, last);
-    	if (vertical == 3) {
-            System.out.println("Victoire Nord Sud !");
-        }
-    	return dBasGauche >= 3 || dHautGauche >= 3 || horizontal >= 3 || vertical >= 3;
+
+    	return dBasGauche >= nbPionAlignToWin || dHautGauche >= nbPionAlignToWin || horizontal >= nbPionAlignToWin || vertical >= nbPionAlignToWin;
     }
     /** @return true si la grille est pleine false sinon */
     public boolean grillePleine() {
@@ -166,6 +156,24 @@ public class Grille {
         }
         
         return message.toString();
+    }
+    public void randomGrille(int nbPionForOneTeam) {
+    	vider();
+    	boolean team = true;
+    	
+    	for (int nbPionPlaced = 0; nbPionPlaced < nbPionForOneTeam * 2;) {
+    		int place = new Random().nextInt(7);
+    		Pion aAjouter = creer(place,team);
+    		try {
+    			if (!IdentVictory(2,aAjouter)) {
+    				ajouter(aAjouter);
+    				nbPionPlaced++;
+    				team = !team;
+    			}
+				
+			} catch (Exception e) {
+			}
+    	}
     }
     /** @return le dernier pion placer dans la grille */
     public Pion getLastPlaced() {

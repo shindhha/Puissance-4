@@ -37,95 +37,64 @@ public class Tests {
     	Grille grilleTest = new Grille();
     	int colonne;
     	boolean team = true;
-    	for (int nIt = 0; nIt < 20 && !grilleTest.IdentVictory(); nIt++) {
+    	for (int nIt = 0; nIt < 20 && !grilleTest.IdentVictory(3,grilleTest.getLastPlaced()); nIt++) {
     		colonne = new Random().nextInt(grilleTest.getTableau().length - 1); 
-    		grilleTest.ajouter(colonne, team);
+    		grilleTest.creer(colonne, team);
     		team = !team;
     	}
     	System.out.println(grilleTest.toString());
     	System.out.println("Le dernier pion " + grilleTest.getLastPlaced().toString());
-		return grilleTest.IdentVictory();
+		return grilleTest.IdentVictory(3,grilleTest.getLastPlaced());
     	
     	
     }
     private static boolean TestsVictoire() throws IOException {
-        boolean victoire = true;
-    	/* Test pour la victoire en diagonale en partant d'en bas a gauche jusqu'en haut a droite */
-    	Grille test1 = new Grille();
-    	/**/
-    	test1.ajouter(0, false);
-    	test1.ajouter(1, true);
-    	test1.ajouter(2, false);
-    	test1.ajouter(3, true);
-    	test1.ajouter(1, false);
-    	test1.ajouter(2, true);
-    	test1.ajouter(3, false);
-    	test1.ajouter(3, true);
-    	test1.ajouter(3, false);
-    	test1.ajouter(2, false);
-        
-    	System.out.println(test1);
-    	System.out.println("Le dernier pion " + test1.getLastPlaced());
-    	victoire &= test1.IdentVictory();
-    	/* Test pour la victoire en diagonale en partant d'en haut a gauche jusqu'en bas a droite */
-    	
-    	Grille test2 = new Grille();
-    	test2.ajouter(6, false);
-    	test2.ajouter(5, true);
-    	test2.ajouter(5, false);
-    	test2.ajouter(4, true);
-    	test2.ajouter(4, false);
-    	test2.ajouter(4, false);
-    	test2.ajouter(3, true);
-    	test2.ajouter(3, false);
-    	test2.ajouter(3, true);
-    	test2.ajouter(3, false);
-    	System.out.println(test2);
-    	System.out.println("Le dernier pion " + test2.getLastPlaced());
-        victoire &= test2.IdentVictory();
-        /* Test pour la victoire verticale */
-        Grille test3 = new Grille();
-
-        test3.ajouter(0,false);
-        test3.ajouter(0,false);
-        test3.ajouter(0,false);
-        test3.ajouter(0,false);
+    	boolean victoire = true;
+    	Grille test3 = new Grille();
+        test3.ajouter(test3.creer(0,false));
+        test3.ajouter(test3.creer(0,false));
+        test3.ajouter(test3.creer(0,false));
+        test3.ajouter(test3.creer(0,false));
         System.out.println(test3);
         System.out.println("Le dernier pion " + test3.getLastPlaced());
-        victoire &= test3.IdentVictory();
+        victoire &= test3.IdentVictory(3,test3.getLastPlaced());
         /* Test pour la victoire horizontale */
         Grille test4 = new Grille();
 
-        test4.ajouter(0,false);
-        test4.ajouter(1,false);
-        test4.ajouter(3,false);
-        test4.ajouter(2,false);
+        test4.ajouter(test4.creer(0,false));
+        test4.ajouter(test4.creer(1,false));
+        test4.ajouter(test4.creer(3,false));
+        test4.ajouter(test4.creer(2,false));
         System.out.println(test4);
         System.out.println("Le dernier pion " + test4.getLastPlaced());
-        victoire &= test4.IdentVictory();
+        victoire &= test4.IdentVictory(3,test4.getLastPlaced());
         /* Test pour une multiple victoire */
         Grille test5 = new Grille();
-        test5.ajouter(6, false);
-        test5.ajouter(5, false);
-        test5.ajouter(5, false);
-        test5.ajouter(4, false);
-        test5.ajouter(4, false);
-        test5.ajouter(4, false);
-        test5.ajouter(3, false);
-        test5.ajouter(3, false);
-        test5.ajouter(3, false);
-        test5.ajouter(3, false);
+        test5.ajouter(test5.creer(6, false));
+        test5.ajouter(test5.creer(5, false));
+        test5.ajouter(test5.creer(5, false));
+        test5.ajouter(test5.creer(4, false));
+        test5.ajouter(test5.creer(4, false));
+        test5.ajouter(test5.creer(4, false));
+        test5.ajouter(test5.creer(3, false));
+        test5.ajouter(test5.creer(3, false));
+        test5.ajouter(test5.creer(3, false));
+        test5.ajouter(test5.creer(3, false));
         System.out.println(test5);
         System.out.println("Le dernier pion " + test5.getLastPlaced());
-        victoire &= test5.IdentVictory(); // identifie que 2/3 victoire , ne pas oublier que les victoires 
+        victoire &= test5.IdentVictory(3,test5.getLastPlaced()); // identifie que 2/3 victoire , ne pas oublier que les victoires 
                                           // sont calculer uniquement par rapport au dernier pion placer.
 
         
         return  victoire;
     }
     public static void test() throws IOException {
-    	Grille grille = Interface.charger("1.txt");
+    	Grille grille = new Grille();
+    	
+    	grille.randomGrille(8);
+    	
     	System.out.println(grille);
+    	
     }
 
 }
