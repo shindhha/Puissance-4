@@ -24,7 +24,7 @@ public class Tests {
      */
     public static void main(String[] args) throws IOException {
         
-        if (TestsVictoire()) {
+        if (testOrdinateur()) {
         	System.out.println("Tests reussissent");
         } else {
         	System.out.println("Tests echouent");
@@ -88,6 +88,7 @@ public class Tests {
         
         return  victoire;
     }
+
     public static void test() throws IOException {
     	Grille grille = new Grille();
     	
@@ -96,5 +97,31 @@ public class Tests {
     	System.out.println(grille);
     	
     }
+ 
+    /** TODO commenter le rôle de cette méthode (SRP)
+     * @return true si test reussi, false sinon
+     */
+    public static boolean testOrdinateur() {
+        
+        Grille ordinateur = new Grille();
+
+        ordinateur.ajouter(ordinateur.creer(3, false));
+        System.out.println(ordinateur);
+        ordinateur.ordinateur(true);
+        System.out.println(ordinateur);
+        ordinateur.ajouter(ordinateur.creer(3, false));
+        System.out.println(ordinateur);
+        ordinateur.ordinateur(true);
+        System.out.println(ordinateur);
+        ordinateur.ajouter(ordinateur.creer(3, false));
+        System.out.println(ordinateur);
+        ordinateur.ordinateur(true);
+        System.out.println(ordinateur);
+        
+        
+        return true;
+    }
+
+
 
 }
