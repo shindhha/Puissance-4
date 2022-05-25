@@ -75,7 +75,7 @@ public class Grille {
         lastPlaced = new Pion(equipe,colonne,ligne);
         getTableau()[colonne][ligne] = lastPlaced;
     }
-    /** TODO commenter le rôle de cette méthode (SRP)
+    /** 
      * @param colonne
      * @return ligne libre
      */
@@ -189,13 +189,13 @@ public class Grille {
     /** 
      * methode de reflexion de l'IA
      * @param equipe equipe de l'ordinateur
-     * @return la grille apres que l'IA ait jouer
      */
     public void ordinateur(boolean equipe) {
         
         int colonneAJouer = 0;
         int[] meilleurScore = new int[getTableau().length]; 
         int[] pointAdversaire = pointParCoup(lastPlaced.getTeam(),lastPlaced.getCoord()[0], lastPlaced.getCoord()[1]);
+        System.out.println(pointAdversaire[0]);
                 
         if (pointAdversaire[0] == 2) {
             colonneAJouer = pointAdversaire[1] + pointAdversaire[2] * -1; // colone a l'opposer d'ou l'adversaire a aligner 3 pions
@@ -229,25 +229,25 @@ public class Grille {
         int point = 0;
         int plusPoints = 0; 
         int[] info = new int[3];
-        
+
         for (int horizontal = -1; horizontal < 2; horizontal++ ) {
             for (int vertical = -1; vertical < 2; vertical++) {
-                Pion temporaire = new Pion (equipe,colonne,ligne);
-                point = getNbAlignPion(horizontal, vertical, temporaire);
+                if (horizontal != 0 || vertical !=0) {
+                    Pion temporaire = new Pion (equipe,colonne,ligne);
+                    point = getNbAlignPion(horizontal, vertical, temporaire);
 
-                if (point > plusPoints) {
-                    plusPoints = point;
-                    colonnePointMax = colonne;
-                    directionPointMax = horizontal;
+                    if (point > plusPoints) {
+                        plusPoints = point;
+                        colonnePointMax = colonne;
+                        directionPointMax = horizontal;
+                    }
                 }
             }
         }
         info[0] = plusPoints;
         info[1] = colonnePointMax;
         info[2] = directionPointMax;
-    return info;
-    
-        
-    
+        return info;
+
     }
 }

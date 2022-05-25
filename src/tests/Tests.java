@@ -126,24 +126,19 @@ public class Tests {
         
         Grille ordinateur = new Grille(4);
         
-        ordinateur.ajouter(2, false);
-        ordinateur.ajouter(2, false);
-        ordinateur.ajouter(2, false);
-        
+        ordinateur.ajouter(3, false);
         System.out.println(ordinateur);
-        
         ordinateur.ordinateur(true);
-        
         System.out.println(ordinateur);
-        
-        ordinateur.ajouter(3, true);
-        ordinateur.ajouter(4, true);
-
+        ordinateur.ajouter(3, false);
         System.out.println(ordinateur);
-        
         ordinateur.ordinateur(true);
-        
         System.out.println(ordinateur);
+        ordinateur.ajouter(3, false);
+        System.out.println(ordinateur);
+        ordinateur.ordinateur(true);
+        System.out.println(ordinateur);
+        
         
         return true;
     }
