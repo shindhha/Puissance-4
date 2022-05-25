@@ -6,6 +6,8 @@
 
 package Objets;
 
+import static Objets.Grille.*;
+
 /**
  * Objet représentant un Pions/Jeton dans une grille de puissance 4
  * l'objet ne possède qu'une caractéristique qui un boolean 

@@ -5,7 +5,11 @@
 
 package Objets;
 
+
 import java.util.Random;
+
+
+
 
 /**
  * Objet repr√©santent un Tableau/Grille de Puissance 4
@@ -15,8 +19,9 @@ import java.util.Random;
  */
 
 public class Grille {
-
-    private Pion[][] tableau = new Pion[7][6];
+	private static final int LARGEUR = 7;
+	private static final int HAUTEUR = 6;
+    private Pion[][] tableau = new Pion[LARGEUR][HAUTEUR];
     private boolean tourJoueur = true;
     private Pion lastPlaced;
     /**
@@ -64,6 +69,7 @@ public class Grille {
      * @throws IllegalArgumentException si la colonne choisit n'existe pas
      */
     public Pion creer(int colonne, boolean equipe) {
+    	
         if (colonne < 0 || colonne > getTableau().length ) {
             throw new IllegalArgumentException("colonne inexistante");
         }
@@ -72,6 +78,7 @@ public class Grille {
         }
             
         int ligne = getFirstPlaceFree(colonne);
+
         lastPlaced = new Pion(equipe,colonne,ligne);
         
         return lastPlaced;
@@ -81,6 +88,7 @@ public class Grille {
         for (; getTableau()[colonne][ligne] != null ; ligne++);
         return ligne;
     }
+
     /**
      * @param colonne la colonne cible
      * @param ligne la ligne cible
@@ -129,6 +137,7 @@ public class Grille {
 
     	return dBasGauche >= nbPionAlignToWin || dHautGauche >= nbPionAlignToWin || horizontal >= nbPionAlignToWin || vertical >= nbPionAlignToWin;
     }
+
     /** @return true si la grille est pleine false sinon */
     public boolean grillePleine() {
     	boolean colonnePlein = true;
@@ -184,5 +193,70 @@ public class Grille {
      */ 
     public Pion[][] getTableau() {
         return this.tableau;
+    }
+    
+    /** 
+     * methode de reflexion de l'IA
+     * @param equipe equipe de l'ordinateur
+     */
+    public void ordinateur(boolean equipe) {
+        
+        int colonneAJouer = 0;
+        int[] meilleurScore = new int[getTableau().length]; 
+        int[] pointAdversaire = pointParCoup(lastPlaced.getTeam(),lastPlaced.getCoord()[0], lastPlaced.getCoord()[1]);
+        System.out.println(pointAdversaire[0]);
+                
+        if (pointAdversaire[0] == 2) {
+            colonneAJouer = pointAdversaire[1] + pointAdversaire[2] * -1; // colone a l'opposer d'ou l'adversaire a aligner 3 pions
+        }else {
+            for (int colonne = 0; colonne < getTableau().length; colonne++) {
+                int ligne = getFirstPlaceFree(colonne);
+                meilleurScore[colonne] = pointParCoup(equipe,colonne, ligne)[0];
+                for (int indice = 0; indice < getTableau().length; indice++) {
+                    if (meilleurScore[colonneAJouer] < meilleurScore[indice]) {
+                        colonneAJouer = indice;
+                    }
+                }
+            }
+        }
+        ajouter(creer(colonneAJouer, equipe));
+    }
+    
+
+    /** 
+     * test le nombre de pion qui s'aligne 
+     * si l'ont pose un pion dans une case donnÈes en argument
+     * @param equipe equipe d'ont ont test les pions
+     * @param colonne du point temporaire
+     * @param ligne  du point temporaire
+     * @return nombre de pion alligner si l'ont 
+     *         pose un pion sur les coordonÈes du pion courrant
+     */
+    public int[] pointParCoup (boolean equipe, int colonne, int ligne) {
+        int colonnePointMax = 0;
+        int directionPointMax = 0;
+        int point = 0;
+        int plusPoints = 0; 
+        int[] info = new int[3];
+
+        for (int horizontal = -1; horizontal < 2; horizontal++ ) {
+            for (int vertical = -1; vertical < 2; vertical++) {
+                if (horizontal != 0 || vertical !=0) {
+                    Pion temporaire = new Pion (equipe,colonne,ligne);
+                    point = getNbAlignPion(horizontal, vertical, temporaire);
+
+                    if (point > plusPoints) {
+                        plusPoints = point;
+                        colonnePointMax = colonne;
+                        directionPointMax = horizontal;
+                    }
+                }
+            }
+        }
+        info[0] = plusPoints;
+        info[1] = colonnePointMax;
+        info[2] = directionPointMax;
+        return info;
+
     }
 }
