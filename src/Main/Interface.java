@@ -11,6 +11,11 @@ import Objets.Grille;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+
+/**
+ * Classe d'interface utilisateur dans la console,
+ * utilisée pour les tests et pour le développement.
+ */
 public class Interface {
 
 	

@@ -9,11 +9,11 @@ package Objets;
 import static Objets.Grille.*;
 
 /**
- * Objet reprÃ©sentant un Pions/Jeton dans une grille de puissance 4
- * l'objet ne possÃ¨de qu'une caractÃ©ristique qui un boolean 
- * permettant d'identifier et de diffÃ©rencier le joueur qui la utiliser
- * dans le but de dÃ©terminer des enssembles de jeton de meme couleur
- * pour dÃ©terminer par la suite une victoire.
+ * Objet représentant un pion/jeton dans une grille de puissance 4
+ * l'objet ne possède qu'une caractéristique qui est un booléen
+ * permettant d'identifier et de différencier le joueur qui l'a utilisé
+ * dans le but de déterminer des ensembles de jeton de même couleur
+ * pour déterminer par la suite une victoire.
  * @author Diego Iglesias , Guillaume Medard , Antoine LALA
  */
 public class Pion  {
@@ -24,7 +24,7 @@ public class Pion  {
 
 	/**
 	 * Methode constructeur des pions
-	 * @param equipe true pour pions bleu et false pour jaune
+	 * @param equipe true pour un pion bleu et false pour un pion jaune
 	 */
 	public Pion(boolean equipe,int colonne,int ligne) {
 		this.equipe = equipe;
@@ -32,14 +32,14 @@ public class Pion  {
 		this.Coord[1] = ligne;
 	}
 	/**
-	 * Permet de récuperer un supposer pion relativement a celui
-	 * qui a appeler la fonction un nombre négatif signifie que l'on
-	 * reculle sur la grille a l'inver un nombre positif signifie que 
-	 * l'on avance 
-	 * @param nbVertical le nombre de case a parcourir sur l'axe des
-	 *                   abssice par rapport au pion courant
-	 * @param nbHorizontal le nombre de case a parcourir sur l'axe des
-	 *                     ordonnée par rapport au pion courant
+	 * Permet de récupérer un supposé pion relativement a celui
+	 * qui a appelé la fonction. Un nombre négatif signifie que l'on
+	 * recule sur la grille, à l'inverse un nombre positif signifie que
+	 * l'on avance.
+	 * @param nbVertical le nombre de cases à parcourir sur l'axe des
+	 *                   abscisses par rapport au pion courant.
+	 * @param nbHorizontal le nombre de cases à parcourir sur l'axe des
+	 *                     ordonnées par rapport au pion courant
 	 * @param choisie La grille sur laquelle on doit récupérer le pion
 	 * @return le pion éloigner horizontalement de 'colonne' case 
 	 *         et éloigner verticalement de 'ligne' case
@@ -59,11 +59,11 @@ public class Pion  {
 		return "a été placer dans la colonne : " + (getCoord()[0] + 1) 
 			   + " et dans la ligne : " + (getCoord()[1] + 1);
 	}
-	/** @return l'equipe true si pions d'equipe bleu et false si jaune */
+	/** @return true si l'équipe est bleue, false si l'équipe est jaune */
 	public boolean getTeam() {
 	    return this.equipe;
 	}
-	/** @return les coordonées du point sous la forme (x,y) */
+	/** @return les coordonnées du point sous la forme (x, y) */
 	public int[] getCoord() {
 		return this.Coord;
 	}
