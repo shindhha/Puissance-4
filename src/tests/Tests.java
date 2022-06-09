@@ -12,13 +12,13 @@ import Objets.Grille;
 import Objets.Pion;
 import Main.Interface;
 
-/** TODO commenter la responsabilit? de cette classe
+/** TODO commenter la responsabilité de cette classe
  * @author guillaume.medard
  *
  */
 public class Tests {
 
-    /** TODO commenter le r?e de cette m?hode (SRP)
+    /** TODO commenter le rôle de cette méthode (SRP)
      * @param args
      * @throws IOException 
      */
