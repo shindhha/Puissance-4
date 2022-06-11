@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="798.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controlleur">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="819.0" fitWidth="1207.0" layoutX="7.0">
+               <image>
+                  <Image url="@../ressources/fond2.png" />
+               </image>
+            </ImageView>
+            <VBox layoutX="154.0" prefHeight="700.0" prefWidth="900.0" spacing="100.0">
+               <children>
+                  <AnchorPane opacity="0.51" prefHeight="200.0" prefWidth="200.0" styleClass="fond" />
+                  <HBox alignment="CENTER" prefHeight="450.0" prefWidth="900.0" spacing="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#ouvrirPartiePuzzle">
+                           <graphic>
+                              <VBox alignment="TOP_CENTER" maxHeight="400.0" prefHeight="400.0" prefWidth="350.0" spacing="75.0" styleClass="puzzle">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="195.0">
+                                       <image>
+                                          <Image url="@../ressources/puzzle.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="38.0" fitWidth="200.0">
+                                       <image>
+                                          <Image url="@../ressources/Mode%20défi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <padding>
+                                    <Insets top="125.0" />
+                                 </padding>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#ouvrirAdversaire">
+                           <graphic>
+                              <ImageView fitHeight="400.0" fitWidth="350.0">
+                                 <image>
+                                    <Image url="@../ressources/versus.jpg" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#ouvrirMenu">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="75.0">
+                           <image>
+                              <Image url="@../ressources/backArrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

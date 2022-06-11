@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="815.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controlleur">
+   <children>
+      <ImageView fitHeight="815.0" fitWidth="1200.0">
+         <image>
+            <Image url="@../ressources/fond4.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="125.0" layoutY="58.0" prefHeight="700.0" prefWidth="950.0" spacing="100.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="450.0" prefWidth="900.0" spacing="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#ouvrirPartieIa">
+                     <graphic>
+                        <VBox maxHeight="400.0" prefHeight="400.0" prefWidth="350.0">
+                           <children>
+                              <ImageView fitHeight="400.0" fitWidth="350.0">
+                                 <image>
+                                    <Image url="@../ressources/Ia.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#ouvrirPartie2Joueur">
+                     <graphic>
+                        <VBox maxHeight="400.0" prefHeight="400.0" prefWidth="350.0">
+                           <children>
+                              <ImageView fitHeight="400.0" fitWidth="350.0">
+                                 <image>
+                                    <Image url="@../ressources/1v1.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#ouvrirModeJeu">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="75.0">
+                     <image>
+                        <Image url="@../ressources/backArrow.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <padding>
+            <Insets top="75.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

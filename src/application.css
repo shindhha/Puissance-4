@@ -1,0 +1,22 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.accueil {
+	-fx-border-color: black;
+	-fx-border-width: 3px;
+	-fx-border-radius: 30px;
+}
+
+.puzzle {
+	-fx-background-color: #D1AD2C;
+}
+
+.fond {
+	-fx-background-color: #380615;
+}
+
+Button {
+	-fx-background-color: none;
+}
+
+.background {
+	background-image: url("../../ressources/placeParking.png");
+}
